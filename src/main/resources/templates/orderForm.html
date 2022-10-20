@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css} "/>
+</head>
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${shawarmaOrder}">
+    <h1>Order your Shawarma creations!</h1>
+<!--    <img th:src="@{/images/TacoCloud.png}"/>-->
+    <h3>Your Shawarma in this order:</h3>
+    <a th:href="@{/design}" id="another">Design another Shawarma</a><br/>
+    <ul>
+        <li th:each="shawarma : ${shawarmaOrder.shawarmas}">
+            <span th:text="${shawarma.name}">Shawarma name</span></li>
+    </ul>
+    <h3>Deliver my Shawarma masterpieces to...</h3>
+    <label for="deliveryName">Name: </label>
+    <input type="text" th:field="*{deliveryName}"/>
+    <br/>
+    <label for="deliveryStreet">Street address: </label>
+    <input type="text" th:field="*{deliveryStreet}"/>
+    <br/>
+    <label for="deliveryCity">City: </label>
+    <input type="text" th:field="*{deliveryCity}"/>
+    <br/>
+    <label for="deliveryState">State: </label>
+    <input type="text" th:field="*{deliveryState}"/>
+    <br/>
+    <label for="deliveryZip">Zip code: </label>
+    <input type="text" th:field="*{deliveryZip}"/>
+    <br/>
+    <h3>Here’s how I’ll pay...</h3>
+    <label for="ccNumber">Credit Card #: </label>
+    <input type="text" th:field="*{ccNumber}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccNumber')}"
+          th:errors="*{ccNumber}">CC Num Error</span>
+    <br/>
+    <label for="ccExpiration">Expiration: </label>
+    <input type="text" th:field="*{ccExpiration}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccExpiration')}"
+          th:errors="*{ccNumber}">ccExpiration Error</span>
+    <br/>
+    <label for="ccCVV">CVV: </label>
+    <input type="text" th:field="*{ccCVV}"/>
+    <br/>
+    <input type="submit" value="Submit Order"/>
+</form>
+</body>
+</html>
